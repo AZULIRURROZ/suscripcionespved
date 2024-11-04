@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/gen2brain/beeep"
@@ -62,6 +63,7 @@ func main() {
 	map_commands["FOLLOW"] = "agregar un listado de voxs al listado de voxs seguidos."
 	map_commands["UNFOLLOW"] = "remover un listado de voxs del listado de voxs seguidos."
 	map_commands["UNFOLLOW+"] = "remover todo del listado de voxs seguidos."
+	os.Args[1] = strings.ToUpper(os.Args[1])
 	fmt.Println(`Hola, elegiste el modo ` + os.Args[1] + `, que sirve para ` + map_commands[os.Args[1]] + ``)
 	switch os.Args[1] {
 	case "HELP":
@@ -138,7 +140,7 @@ func plu(fn_count int) string {
 }
 
 func follow(fn_voxs []typ_vox, fn_ids []string) {
-	fmt.Println(`Ahora se intentará comenzar a seguir un total de ` + fmt.Sprint(len(fn_ids)-1) + ` ` + plu(len(fn_ids)) + ` `)
+	fmt.Println(`Ahora se intentará comenzar a seguir un total de ` + fmt.Sprint(len(fn_ids)) + ` ` + plu(len(fn_ids)) + ` `)
 	tmp_count, tmp_ids := 0, []string{}
 	for i := 0; i < len(fn_voxs); i++ {
 		tmp_ids = append(tmp_ids, fn_voxs[i].Vox.Filename)
@@ -166,7 +168,7 @@ func unfollow(fn_voxs []typ_vox, fn_ids []string) {
 			fn_ids = append(fn_ids, fn_voxs[i].Vox.Filename)
 		}
 	}
-	fmt.Println(`Ahora se intentará dejar de seguir un total de ` + fmt.Sprint(len(fn_ids)-1) + ` ` + plu(len(fn_ids)) + ` `)
+	fmt.Println(`Ahora se intentará dejar de seguir un total de ` + fmt.Sprint(len(fn_ids)) + ` ` + plu(len(fn_ids)) + ` `)
 	tmp_voxsNew := []typ_vox{}
 	for i := 0; i < len(fn_voxs); i++ {
 		if !slices.Contains(fn_ids, fn_voxs[i].Vox.Filename) {
