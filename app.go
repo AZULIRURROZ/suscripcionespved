@@ -229,7 +229,7 @@ func check(fn_voxs []typ_vox, fn_notify bool) {
 }
 
 func checkOne(fn_id string) typ_vox {
-	tmp_req, err := http.NewRequest("POST", "https://api.devox.me/voxes/getVox/"+fn_id, nil)
+	tmp_req, err := http.NewRequest("POST", "https://api.devox.re/voxes/getVox/"+fn_id, nil)
 	if err != nil {
 		exit(err)
 	}
